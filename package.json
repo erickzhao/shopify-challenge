@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/erickzhao/shopify-challenge/issues"
   },
-  "homepage": "https://github.com/erickzhao/shopify-challenge#readme"
+  "homepage": "https://github.com/erickzhao/shopify-challenge#readme",
+  "dependencies": {
+    "node-fetch": "^1.7.3"
+  }
 }

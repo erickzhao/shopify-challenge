@@ -11,3 +11,5 @@ class Graph {
     this.adjList.get(u).push(v);
   }
 }
+
+module.exports = Graph;

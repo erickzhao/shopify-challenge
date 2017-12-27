@@ -1,5 +1,5 @@
 const fetch = require('node-fetch');
-const Graph = require('./graph.js');
+const MenuGraph = require('./menuGraph.js');
 
 async function getPage(caseId, page) {
   let response = await fetch(`https://backend-challenge-summer-2018.herokuapp.com/challenges.json?id=${caseId}&page=${page}`);
@@ -7,20 +7,14 @@ async function getPage(caseId, page) {
   return data;
 }
 
-function addToMenuGraph(graph, menus) {
-  menus.forEach(menu => {
-    graph.addVertex(menu.id, menu.child_ids);
-  })
-}
-
 function countPages(itemsPerPage, totalItems) {
   return Math.ceil(totalItems/itemsPerPage);
 }
 
 async function initializeGraph(caseId) {
-  const menuGraph = new Graph();
+  const menuGraph = new MenuGraph();
   const firstPage = await getPage(caseId, 1);
-  addToMenuGraph(menuGraph, firstPage.menus);
+  menuGraph.addMenus(firstPage.menus);
 
   const numPages = countPages(firstPage.pagination.per_page, firstPage.pagination.total);
 
@@ -30,8 +24,8 @@ async function initializeGraph(caseId) {
   }
   const restOfPages = await Promise.all(promises);
   const restOfMenus = restOfPages.reduce((acc,val) => acc.concat(val.menus), []);
-  addToMenuGraph(menuGraph, restOfMenus);
+  menuGraph.addMenus(restOfMenus);
   return menuGraph;
 }
 
-initializeGraph(2).then(result => console.log(result));
+initializeGraph(1).then(result => console.log(result));

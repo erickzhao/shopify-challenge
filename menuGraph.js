@@ -60,6 +60,4 @@ class MenuGraph extends Graph {
   }
 }
 
-
-
 module.exports = MenuGraph;

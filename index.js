@@ -1,9 +1,8 @@
 const fetch = require('node-fetch');
 const bunyan = require('bunyan');
 const MenuGraph = require('./menuGraph.js');
-const log = bunyan.createLogger({name: 'MenuValidator'});
 
-let menuGraph;
+const log = bunyan.createLogger({name: 'MenuValidator'});
 
 async function getPage(caseId, page) {
   let response = await fetch(`https://backend-challenge-summer-2018.herokuapp.com/challenges.json?id=${caseId}&page=${page}`);
@@ -31,15 +30,14 @@ async function initializeGraph(caseId) {
   menuGraph.addMenus(restOfMenus);
   return menuGraph;
 }
-let time1, time2;
 initializeGraph(2)
   .then(graph => {
     const menuValidity = graph.validate();
-    const a = graph.getMenus().reduce((acc,val) => {
+    const menus = graph.getMenus().reduce((acc,val) => {
       (menuValidity[val.root_id]) ? acc.valid_menus.push(val) : acc.invalid_menus.push(val);
       return acc;
     }, {valid_menus: [], invalid_menus: []});
-    console.log(JSON.stringify(a));
+    console.log(JSON.stringify(menus));
   })
   .catch(error => {
     log.error(error);

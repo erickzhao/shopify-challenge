@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/erickzhao/shopify-challenge#readme",
   "dependencies": {
+    "bunyan": "^1.8.12",
     "node-fetch": "^1.7.3"
   }
 }

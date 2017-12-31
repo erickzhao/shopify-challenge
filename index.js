@@ -32,11 +32,7 @@ async function initializeGraph(caseId) {
 }
 initializeGraph(2)
   .then(graph => {
-    const menuValidity = graph.validate();
-    const menus = graph.getMenus().reduce((acc,val) => {
-      (menuValidity[val.root_id]) ? acc.valid_menus.push(val) : acc.invalid_menus.push(val);
-      return acc;
-    }, {valid_menus: [], invalid_menus: []});
+    const menus = graph.getMenus();
     console.log(JSON.stringify(menus));
   })
   .catch(error => {

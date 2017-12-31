@@ -16,10 +16,14 @@ class MenuGraph extends Graph {
   }
 
   getMenus() {
-    return this.roots.map(parent => ({
-      root_id: parent,
-      children: this._DFSHelper(parent, {})
-    }))
+    return this.roots.reduce((acc,val) => {
+      const menu = {
+        root_id: val,
+        children: this._DFSHelper(val, {})
+      };
+      (this._validationHelper(val, {}, {}, 1)) ? acc.invalid_menus.push(menu) : acc.valid_menus.push(menu);
+      return acc;
+    }, {valid_menus: [], invalid_menus: []})
   }
 
   _DFSHelper(id, visited) {
@@ -27,31 +31,22 @@ class MenuGraph extends Graph {
     const children = [];
 
     this.adjList.get(id).forEach(child => {
+      children.push(child);
       if (!visited[child]) {
-        children.push(child);
         children.push(...this._DFSHelper(child, visited));
-      } else {
-        children.push(child);
       }
     });
     return children;
   }
 
-  validate() {
-    return this.roots.reduce((acc,val) => {
-      acc[val] = !this._validationHelper(val, {}, {});
-      return acc;
-    },{});
-  }
-
-  _validationHelper(id, visited, recList) {
+  _validationHelper(id, visited, recList, depth) {
     visited[id] = true;
     recList[id] = true;
     let children = this.adjList.get(id);
 
     for (let i=0; i < children.length; i++) {
       const child = children[i];
-      if (recList[child] || !visited[child] && this._validationHelper(child, visited, recList)) {
+      if (recList[child] || depth > 4 || !visited[child] && this._validationHelper(child, visited, recList, depth+1)) {
         return true;
       }
     }

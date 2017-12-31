@@ -6,6 +6,9 @@ const log = bunyan.createLogger({name: 'MenuValidator'});
 
 async function getPage(caseId, page) {
   let response = await fetch(`https://backend-challenge-summer-2018.herokuapp.com/challenges.json?id=${caseId}&page=${page}`);
+  if (response.status !== 200) {
+    throw new Error(`No response from Shopify API for ID ${caseId}, Page ${page}.`);
+  }
   let data = await response.json();
   return data;
 }
@@ -30,11 +33,14 @@ async function initializeGraph(caseId) {
   menuGraph.addMenus(restOfMenus);
   return menuGraph;
 }
-initializeGraph(2)
+
+const caseNumber = Number(process.argv[2]) || 1;
+
+initializeGraph(caseNumber)
   .then(graph => {
     const menus = graph.getMenus();
     console.log(JSON.stringify(menus));
   })
   .catch(error => {
-    log.error(error);
+    console.error(error);
   })

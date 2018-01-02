@@ -1,8 +1,8 @@
 {
   "name": "shopify-challenge",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Shopify Backend Intern Challenge - Summer 2018",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,7 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/erickzhao/shopify-challenge.git"
   },
-  "author": "",
+  "author": "erick.zhao@mail.mcgill.ca",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/erickzhao/shopify-challenge/issues"

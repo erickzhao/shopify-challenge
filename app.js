@@ -2,6 +2,10 @@ const express = require('express');
 const validator = require('./validator.js');
 const app = express();
 
+/**
+ * Basic Express application for the challenge.
+ */
+
 app.get('/menus', async(req, res) => {
   try {
     const menus = await validator.validate(req.query.id);

@@ -64,10 +64,10 @@ async function validateMenus(caseNumber) {
  * pass it into the menu validator. Otherwise (for empty or
  * invalid argument), set it to problem #1.
  */
-function runCLI() {
+async function runCLI() {
   if (require.main === module) {
     const caseNumber = Number(process.argv[2]) || 1;
-    console.log(validateMenus(caseNumber));
+    console.log(JSON.stringify(await validateMenus(caseNumber), undefined, 2));
   }
 }
 

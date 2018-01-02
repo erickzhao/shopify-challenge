@@ -41,7 +41,9 @@ async function initializeGraph(caseId) {
   for (let i=2; i<=numPages; i++) {
     promises.push(getPage(caseId, i));
   }
-  const restOfPages = await Promise.all(promises);
+  // execute all promises at the same time instead of awaiting because the info
+  // from one page doesn't depend on the others.
+  const restOfPages = await Promise.all(promises); 
   const restOfMenus = restOfPages.reduce((acc,val) => acc.concat(val.menus), []);
   menuGraph.addMenus(restOfMenus);
   return menuGraph;
@@ -57,7 +59,6 @@ async function validateMenus(caseNumber) {
   return graph.getMenus();
 }
 
-// 
 /**
  * Run code if validator is called directly from CLI.
  * Accepts 1 argument (problem ID). If it's a valid number,

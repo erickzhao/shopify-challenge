@@ -17,7 +17,7 @@ This is my submission for the Summer 2018 Backend Intern Challenge for Shopify. 
 
 ## Usage
 
-The application can either be run directly from the command line with NodeJS or accessed via an Express-based REST API.
+The application can either be run directly from the command line with NodeJS or accessed via an Express-based REST API. **Ensure that Node is installed with at least v7.6 (for native async/await)**, and ensure that all dependencies are installed by running `npm install`.
 
 ### CLI
 * Run `node validator.js [id]` via command line. The menus will be logged on standard output.

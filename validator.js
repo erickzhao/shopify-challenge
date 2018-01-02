@@ -1,8 +1,5 @@
 const fetch = require('node-fetch');
-const bunyan = require('bunyan');
 const MenuGraph = require('./menuGraph.js');
-
-const log = bunyan.createLogger({name: 'MenuValidator'});
 
 async function getPage(caseId, page) {
   let response = await fetch(`https://backend-challenge-summer-2018.herokuapp.com/challenges.json?id=${caseId}&page=${page}`);

@@ -34,13 +34,15 @@ async function initializeGraph(caseId) {
   return menuGraph;
 }
 
-const caseNumber = Number(process.argv[2]) || 1;
+async function validateMenus(caseNumber) {
+  const graph = await initializeGraph(caseNumber);
+  return graph.getMenus();
+}
 
-initializeGraph(caseNumber)
-  .then(graph => {
-    const menus = graph.getMenus();
-    console.log(JSON.stringify(menus));
-  })
-  .catch(error => {
-    console.error(error);
-  })
+if (require.main === module) {
+  const caseNumber = Number(process.argv[2]) || 1;
+  console.log(validateMenus(caseNumber));
+}
+
+module.exports.validate = validateMenus;
+

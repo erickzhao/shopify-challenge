@@ -1,5 +1,5 @@
 const express = require('express');
-const validator = require('./index.js');
+const validator = require('./validator.js');
 const app = express();
 
 app.get('/menus', async(req, res) => {

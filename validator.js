@@ -67,8 +67,10 @@ async function validateMenus(caseNumber) {
  */
 async function runCLI() {
   if (require.main === module) {
+    // log prettier json like in the sample response
+    const stringify = require('json-stringify-pretty-compact');
     const caseNumber = Number(process.argv[2]) || 1;
-    console.log(JSON.stringify(await validateMenus(caseNumber), undefined, 2));
+    console.log(stringify(await validateMenus(caseNumber), undefined, 2));
   }
 }
 

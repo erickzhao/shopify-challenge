@@ -37,7 +37,7 @@ class MenuGraph extends Graph {
       const [children, isInvalid] = this._validationHelper(val, {}, {}, 1);
       const menu = {
         root_id: val,
-        children: children
+        children: children.sort((a, b) => a - b) // sorting to match the format of the example response
       };
       (isInvalid) ? acc.invalid_menus.push(menu) : acc.valid_menus.push(menu);
       return acc;
